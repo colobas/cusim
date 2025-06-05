@@ -124,7 +124,10 @@ def locate_cuda():
                 'nvcc': nvcc,
                 'include': os.path.join(home, 'include'),
                 'lib64':   os.path.join(home, 'lib64')}
-  cuda_ver = os.path.basename(os.path.realpath(home)).split("-")[1].split(".")
+  try:
+    cuda_ver = os.path.basename(os.path.realpath(home)).split("-")[1].split(".")
+  except:
+    cuda_ver = os.path.basename(os.path.realpath(home)).split(".")
   major, minor = int(cuda_ver[0]), int(cuda_ver[1])
   cuda_ver = 10 * major + minor
   assert cuda_ver >= 70, f"too low cuda ver {major}.{minor}"
