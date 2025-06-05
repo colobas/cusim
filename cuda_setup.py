@@ -12,6 +12,11 @@ import logging
 import os
 import sys
 
+try:
+    import numpy.distutils
+except ImportError:
+    pass
+
 from distutils import ccompiler, errors, unixccompiler
 from setuptools.command.build_ext import build_ext as setuptools_build_ext
 
