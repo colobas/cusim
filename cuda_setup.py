@@ -70,18 +70,23 @@ def get_cuda_compute(cuda_ver):
 
 
 def get_cuda_arch(cuda_ver):
-  if "CUDA_ARCH" in os.environ:
-    arch = os.environ["CUDA_ARCH"]
-  else:
-    if 70 <= cuda_ver < 92:
-      arch = "30"
-    if 92 <= cuda_ver < 110:
-      arch = "50"
-    if cuda_ver == 110:
-      arch = "52"
-    if cuda_ver == 111:
-      arch = "80"
-  return arch
+    if "CUDA_ARCH" in os.environ:
+        arch = os.environ["CUDA_ARCH"]
+    else:
+        if 70 <= cuda_ver < 92:
+            arch = "30"
+        elif 92 <= cuda_ver < 110:
+            arch = "50"
+        elif cuda_ver == 110:
+            arch = "52"
+        elif 111 <= cuda_ver < 120:
+            arch = "80"
+        elif 120 <= cuda_ver <= 128:
+            arch = "90"
+        else:
+            # Fallback for versions outside known ranges
+            arch = "90"  # Default to newest supported
+    return arch
 
 def locate_cuda():
   """Locate the CUDA environment on the system
