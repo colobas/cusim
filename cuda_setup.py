@@ -51,22 +51,29 @@ def get_cuda_sm_list(cuda_ver):
 
 
 def get_cuda_compute(cuda_ver):
-  if "CUDA_COMPUTE" in os.environ:
-    compute = os.environ["CUDA_COMPUTE"]
-  else:
-    if 70 <= cuda_ver < 80:
-      compute = "52"
-    if 80 <= cuda_ver < 90:
-      compute = "61"
-    if 90 <= cuda_ver < 100:
-      compute = "70"
-    if 100 <= cuda_ver < 110:
-      compute = "75"
-    if cuda_ver == 110:
-      compute = "80"
-    if cuda_ver == 111:
-      compute = "86"
-  return compute
+    if "CUDA_COMPUTE" in os.environ:
+        compute = os.environ["CUDA_COMPUTE"]
+    else:
+        if 70 <= cuda_ver < 80:
+            compute = "52"
+        elif 80 <= cuda_ver < 90:
+            compute = "61"
+        elif 90 <= cuda_ver < 100:
+            compute = "70"
+        elif 100 <= cuda_ver < 110:
+            compute = "75"
+        elif cuda_ver == 110:
+            compute = "80"
+        elif 111 <= cuda_ver < 115:
+            compute = "86"
+        elif 115 <= cuda_ver < 120:
+            compute = "89"
+        elif 120 <= cuda_ver <= 128:
+            compute = "90"
+        else:
+            # Fallback for versions outside known ranges
+            compute = "90"  # Default to newest supported
+    return compute
 
 
 def get_cuda_arch(cuda_ver):
